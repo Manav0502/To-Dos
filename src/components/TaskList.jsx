@@ -7,15 +7,18 @@ export default function TaskList({ tasks, onToggle, onDelete, onEdit }) {
 
   return (
     <ul className="w-full">
-      {tasks.map((task) => (
-        <TaskItem
-          key={task.id}
-          task={task}
-          onToggle={onToggle}
-          onDelete={onDelete}
-          onEdit={onEdit}
-        />
-      ))}
+      {tasks.map((task) => {
+        const taskId = task._id || task.id;
+        return (
+          <TaskItem
+            key={taskId}
+            task={{ ...task, id: taskId }}
+            onToggle={onToggle}
+            onDelete={onDelete}
+            onEdit={onEdit}
+          />
+        );
+      })}
     </ul>
   );
 }
