@@ -5,8 +5,8 @@ import TaskList from './components/TaskList';
 
 export default function App() {
   const [tasks, setTasks] = useState([
-    { id: 1, text: 'Learn React State', completed: true },
-    { id: 2, text: 'Build To-Do UI', completed: false }
+    { id: 1, text: 'Task 1', completed: true },
+    { id: 2, text: 'Task 2', completed: false }
   ]);
   const [searchQuery, setSearchQuery] = useState('');
 
