@@ -1,16 +1,31 @@
-# React + Vite
+# To-Do List Application
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A basic full-stack To-Do application built with the MERN stack (MongoDB, Express, React, Node.js) and styled with Tailwind CSS.
 
-Currently, two official plugins are available:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
 
-## React Compiler
+## Features
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+* Add, edit, and delete tasks
+* Mark tasks as complete or incomplete
+* Search and filter tasks in real-time
+* Data persistence using MongoDB Atlas
 
-## Expanding the ESLint configuration
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+
+## Tech Stack
+
+* **Frontend:** React (Vite), Tailwind CSS, Axios
+* **Backend:** Node.js, Express.js
+* **Database:** MongoDB Atlas (Mongoose)
+
+
+
+## Environment Variables
+
+Create a `.env` file in the `backend/server` directory with the following configuration:
+
+```env
+PORT=5000
+MONGO_URI=your_mongodb_connection_string
+NODE_ENV=development
