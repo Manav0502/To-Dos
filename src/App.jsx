@@ -4,7 +4,7 @@ import TaskForm from './components/TaskForm';
 import SearchBar from './components/SearchBar';
 import TaskList from './components/TaskList';
 
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api/tasks';
+const API_URL = '/api/tasks';
 
 export default function App() {
   const [tasks, setTasks] = useState([]);
