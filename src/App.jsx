@@ -2,39 +2,48 @@ import { useState, useEffect } from 'react';
 import { TodoProvider } from './contexts';
 import { TodoForm, TodoItem } from './components';
 
+const API_URL = 'http://localhost:5000/api/todos';
+
 function App() {
   const [todos, setTodos] = useState([]);
 
-  const addTodo = (todo) => {
-    setTodos((prev) => [{ id: Date.now(), ...todo }, ...prev]);
-  };
-
-  const updateTodo = (id, todo) => {
-    setTodos((prev) => prev.map((prevTodo) => (prevTodo.id === id ? todo : prevTodo)));
-  };
-
-  const deleteTodo = (id) => {
-    setTodos((prev) => prev.filter((todo) => todo.id !== id));
-  };
-
-  const toggleComplete = (id) => {
-    setTodos((prev) =>
-      prev.map((prevTodo) =>
-        prevTodo.id === id ? { ...prevTodo, completed: !prevTodo.completed } : prevTodo
-      )
-    );
-  };
-
   useEffect(() => {
-    const storedTodos = JSON.parse(localStorage.getItem('todos'));
-    if (storedTodos && storedTodos.length > 0) {
-      setTodos(storedTodos);
-    }
+    fetch(API_URL)
+      .then((res) => res.json())
+      .then((data) => setTodos(data))
+      .catch((err) => console.error(err));
   }, []);
 
-  useEffect(() => {
-    localStorage.setItem('todos', JSON.stringify(todos));
-  }, [todos]);
+  const addTodo = async (todoData) => {
+    const res = await fetch(API_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(todoData)
+    });
+    const newTodo = await res.json();
+    setTodos((prev) => [newTodo, ...prev]);
+  };
+
+  const updateTodo = async (id, updatedData) => {
+    const res = await fetch(`${API_URL}/${id}`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ todo: updatedData.todo })
+    });
+    const updated = await res.json();
+    setTodos((prev) => prev.map((t) => (t.id === id ? updated : t)));
+  };
+
+  const deleteTodo = async (id) => {
+    await fetch(`${API_URL}/${id}`, { method: 'DELETE' });
+    setTodos((prev) => prev.filter((t) => t.id !== id));
+  };
+
+  const toggleComplete = async (id) => {
+    const res = await fetch(`${API_URL}/${id}/toggle`, { method: 'PATCH' });
+    const updated = await res.json();
+    setTodos((prev) => prev.map((t) => (t.id === id ? updated : t)));
+  };
 
   return (
     <TodoProvider value={{ todos, addTodo, updateTodo, deleteTodo, toggleComplete }}>
