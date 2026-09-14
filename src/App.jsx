@@ -2,7 +2,9 @@ import { useState, useEffect } from 'react';
 import { TodoProvider } from './contexts';
 import { TodoForm, TodoItem } from './components';
 
-const API_URL = 'http://localhost:5000/api/todos';
+const API_URL = process.env.NODE_ENV === 'production' 
+  ? 'https://to-dos-v5r1.onrender.com/' 
+  : 'http://localhost:5000/api/todos';
 
 function App() {
   const [todos, setTodos] = useState([]);
